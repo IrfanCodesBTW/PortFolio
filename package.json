@@ -1,8 +1,12 @@
 {
   "name": "irfan-portfolio-v2",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.1.0",
   "type": "module",
+  "description": "Shaik Irfan Basha — AI & software systems. Portfolio, capabilities and selected work.",
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "scripts": {
     "dev": "vite --port 5190 --strictPort",
     "build": "tsc --noEmit && vite build",

@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://irfan-portfolio-xi.vercel.app/sitemap.xml
