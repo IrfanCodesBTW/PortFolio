@@ -1,74 +1,72 @@
-<div align="center">
-  <img src="banner.png" alt="Shaik Irfan Basha Portfolio Banner" width="100%">
+# FOUR LAYERS — portfolio v2
 
-  <br>
+Personal portfolio of Shaik Irfan Basha — AI integration, full-stack engineering and automation. Built as a technical document: a live system trace in the hero, project evidence, and the anatomy of a build.
 
-  [![GitHub followers](https://img.shields.io/github/followers/IrfanCodesBTW?style=for-the-badge&logo=github&labelColor=13131d&color=7a59ff)](https://github.com/IrfanCodesBTW)
-  [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=13131d&color=0077B5)](https://www.linkedin.com/in/shaik-irfan-basha-b73abb325/)
-  [![Email](https://img.shields.io/badge/Email-irfanbasha.contact@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white&labelColor=13131d&color=D14836)](mailto:irfanbasha.contact@gmail.com)
+## Run
 
-  ---
+```bash
+cd portfolio-v2
+npm install
+npm run dev        # http://localhost:5190
+npm run build      # typecheck + production build
+npm run preview    # http://localhost:4190
+```
 
-  *Building the next generation of AI systems with intentional design and premium performance.*
-</div>
+## Structure
 
-## 🚀 About Me
-I am a 19-year-old developer from Hyderabad, pursuing a BTech in Computer Science at **NIAT × Aurora Deemed University**. I specialize in building **AI-powered tools**, **autonomous pipelines**, and **high-performance web applications**. I treat every project like a product, focusing on both technical excellence and visual impact.
+```
+src/
+  App.tsx                page shell, preloader state, ambient ground, Lenis
+  main.tsx               fonts + styles entry
+  styles/                tokens, base reset, shared primitives (owned by integrator)
+  lib/                   gsap registration, Lenis controller, layers, format
+  hooks/                 reduced motion, smooth scroll, ambient ground
+  data/                  content.ts, projects.ts, types.ts — all copy lives here
+  components/
+    preloader/           entry sequence
+    hero/                headline + draggable layer stack
+    manifest/            word-colour statement
+    work/                index, preview plate, layer strip, case sheet
+    systems/             anatomy, composition, capability matrix
+    services/            three offers → now capabilities/ (AI, software, automation)
+    process/             four steps
+    about/               portrait, facts, tools
+    contact/             copy email, mailto
+    footer/              wordmark, colophon
+    layout/              nav, cursor, grain
+docs/                    PRD, design system, motion spec, content deck, briefs, acceptance, build log
+```
 
-- 🤖 Currently deep in: **Multi-agent LLM systems** & **Computer Vision**.
-- 🏆 Hackathon-driven strategy: Building production-ready solutions under pressure.
-- 🎨 Design Philosophy: **Minimalist, Confident, Dark-themed.**
+## Editing content
 
----
+- Copy: `src/data/content.ts`
+- Projects and layer balance: `src/data/projects.ts`
+- Portrait: `public/portrait.jpg` (1000 × 1250) with 500/800 variants served via `srcset`. Replace all three to update the About plate; without them the site falls back to the halftone monogram.
+- Social links: fill `site.socials` in `content.ts`; the footer hides empty entries.
 
-## 🛠️ Tech Stack
+Layer percentages are authored estimates, not analytics. Keep them honest.
 
-<div align="center">
+## Quality gate
 
-| **Languages** | **Frameworks** | **AI / ML** | **Infrastructure** |
-| :--- | :--- | :--- | :--- |
-| ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) | ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=next.js&logoColor=white) | ![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv&logoColor=white) | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) |
-| ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) | ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black) | ![YOLO](https://img.shields.io/badge/YOLO-00FFFF?style=flat-square&logo=yolo&logoColor=black) | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) |
-| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) | ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white) | ![Ollama](https://img.shields.io/badge/Ollama-000000?style=flat-square&logo=ollama&logoColor=white) | ![n8n](https://img.shields.io/badge/n8n-FF6D5A?style=flat-square&logo=n8n&logoColor=white) |
+```bash
+npm run qa          # 1440×900 captures + overflow audit → qa/shots
+npm run qa:mobile   # 390×844 captures
+npm run og          # regenerates public/og.png from real fonts
+QA_REDUCED=1 node scripts/shoot.mjs 1440 900 1   # reduced-motion path
+```
 
-</div>
+The harness drives the installed Chrome headlessly (puppeteer-core), waits for the
+preloader to finish, disables CSS transitions for stable frames, and reports console
+errors, horizontal overflow at 360–1920 px, pin count and the case-sheet open/close cycle.
 
----
 
-## 🌟 Featured Projects
+## Deploy
 
-### 🧠 [RootSight](https://github.com/IrfanCodesBTW/RootSight)
-> **AI-powered incident responder.**
-Automates cognitive tasks for engineers by reconstructing timelines and generating root-cause hypotheses in under 3 minutes.
-`Python` • `Next.js` • `LLM Agents`
+The repository root is the app. On Vercel: framework preset **Vite**, build `npm run build`, output `dist` (also declared in `vercel.json`). Add the domain and update `index.html` metadata (`og:url`, canonical) once the final URL is known.
 
-### 📉 [DecisionEngine](https://github.com/IrfanCodesBTW/DecisionEngine)
-> **Local-first performance analytics.**
-Transforms feedback transcripts into structured insights using local LLMs via Ollama. 100% privacy-focused.
-`Python` • `Ollama` • `FastAPI`
+## Notes
 
-### 🚂 [RailCascade](https://github.com/IrfanCodesBTW/RailCascade)
-> **Railway RL Environment.**
-Deterministic simulation for modeling traffic management and cascading delays. Scored **93/100** at OpenEnv Hackathon.
-`Python` • `Docker` • `OpenEnv`
-
-### 👁️ [FocusSense AI](https://github.com/IrfanCodesBTW/FocusSenseAI)
-> **Real-time Focus & Emotion Tracker.**
-Webcam-based dashboard for visualizing productivity trends and emotional distribution.
-`OpenCV` • `DeepFace` • `Pandas`
-
----
-
-## 📈 GitHub Stats
-
-<div align="center">
-  <img src="https://github-readme-stats.shion.dev/api?username=IrfanCodesBTW&show_icons=true&theme=tokyonight&hide_border=true&bg_color=050508&title_color=7a59ff&text_color=8b88a8&icon_color=00d4aa" alt="GitHub Stats" />
-  <img src="https://github-readme-stats.shion.dev/api/top-langs/?username=IrfanCodesBTW&layout=compact&theme=tokyonight&hide_border=true&bg_color=050508&title_color=7a59ff&text_color=8b88a8" alt="Top Languages" />
-</div>
-
----
-
-<div align="center">
-  <h3>Let's collaborate!</h3>
-  <p>Find more of my work at <a href="https://github.com/IrfanCodesBTW">IrfanCodesBTW</a></p>
-</div>
+- No Tailwind. Tokens and primitives in `src/styles`.
+- No external images. Project posters and the portrait fallback are code-drawn.
+- Two pinned sections maximum (`work`, `systems`).
+- Reduced motion is a first-class path, not a fallback.

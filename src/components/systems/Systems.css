@@ -1,0 +1,63 @@
+/* ============================================================
+   03 — SYSTEMS · the cobalt chapter
+   Structure only: hairlines, mono labels, one committed field.
+   ============================================================ */
+
+.sys-root {
+  position: relative;
+}
+
+.sys-head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--gap);
+  row-gap: clamp(1.75rem, 3.5vw, 3rem);
+  padding-bottom: clamp(2.75rem, 6vw, 5rem);
+}
+
+.sys-meta {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+
+.sys-meta-count {
+  text-align: right;
+}
+
+.sys-title {
+  grid-column: 1 / span 9;
+}
+
+.sys-title-line {
+  display: block;
+}
+
+.sys-intro {
+  grid-column: 10 / span 3;
+  align-self: end;
+  max-width: 46ch;
+}
+
+@media (max-width: 900px) {
+  .sys-title {
+    grid-column: 1 / -1;
+  }
+
+  .sys-intro {
+    grid-column: 1 / span 8;
+  }
+}
+
+@media (max-width: 640px) {
+  .sys-intro {
+    grid-column: 1 / -1;
+  }
+
+  .sys-meta-count {
+    text-align: left;
+  }
+}

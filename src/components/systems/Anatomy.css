@@ -1,0 +1,443 @@
+/* ============================================================
+   FIG. 01 — ANATOMY OF A BUILD
+   An isometric exploded stack, annotated. Hairlines and mono type
+   do the explaining; the plate colours are the legend.
+   ============================================================ */
+
+.anat-root {
+  border-top: 1px solid var(--hairline);
+  padding-block: clamp(2.5rem, 5vw, 4rem) clamp(2.75rem, 5.5vw, 4.5rem);
+}
+
+/* --- figure head -------------------------------------------- */
+
+.anat-head {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: clamp(1.5rem, 3.5vh, 2.5rem);
+}
+
+.anat-fig {
+  color: var(--fg);
+}
+
+.anat-title {
+  margin: 0;
+}
+
+.anat-hint {
+  text-align: right;
+}
+
+/* --- stage --------------------------------------------------- */
+
+.anat-stage {
+  position: relative;
+}
+
+.anat-figure {
+  width: 100%;
+}
+
+/* --- the canvas: the wrapper and the viewBox share an aspect
+       ratio, so percentage-positioned captions stay welded to
+       their plate at every size. ------------------------------ */
+
+.anat-canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 900 / 520;
+}
+
+.anat-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* --- svg furniture ------------------------------------------- */
+
+.anat-leader {
+  fill: none;
+  stroke: var(--fg-soft);
+  stroke-width: 1;
+  stroke-opacity: 0.6;
+}
+
+.anat-plate-face {
+  fill: var(--layer);
+  fill-opacity: 0.92;
+}
+
+.anat-plate-skirt {
+  fill: var(--layer);
+}
+
+.anat-plate-shade {
+  fill: var(--ink);
+  opacity: 0.3;
+}
+
+.anat-plate-edge {
+  fill: none;
+  stroke: color-mix(in srgb, var(--fg) 36%, transparent);
+  stroke-width: 1;
+}
+
+/* --- captions, absolutely positioned beside the stack -------- */
+
+.anat-caps {
+  position: absolute;
+  inset: 0 0 0 45%;
+}
+
+.anat-cap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--anat-y);
+  transform: translateY(-50%);
+}
+
+.anat-cap-inner {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  column-gap: 0.6rem;
+  row-gap: 0.2rem;
+  align-items: baseline;
+}
+
+.anat-cap-index {
+  grid-column: 1;
+  color: var(--fg);
+}
+
+.anat-cap-index::before {
+  content: "";
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.45rem;
+  vertical-align: 0.05em;
+  background: var(--layer);
+  border: 1px solid color-mix(in srgb, var(--fg) 34%, transparent);
+}
+
+.anat-cap:nth-child(1) {
+  --layer: var(--interface);
+}
+.anat-cap:nth-child(2) {
+  --layer: var(--application);
+}
+.anat-cap:nth-child(3) {
+  --layer: var(--data);
+}
+.anat-cap:nth-child(4) {
+  --layer: var(--intelligence);
+}
+
+.anat-cap-name {
+  grid-column: 2;
+  font-size: var(--text-lg);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.anat-cap-blurb {
+  grid-column: 2;
+  max-width: 42ch;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--fg-soft);
+}
+
+/* --- the resolve: one real call path ------------------------- */
+
+.anat-flow {
+  position: relative;
+  margin-top: clamp(1.25rem, 2.6vh, 2rem);
+  padding: clamp(0.85rem, 1.8vh, 1.15rem) clamp(0.9rem, 1.6vw, 1.35rem);
+  display: grid;
+  gap: clamp(0.6rem, 1.4vh, 0.85rem);
+}
+
+.anat-flow-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.anat-flow-frame-line {
+  fill: none;
+  stroke: var(--fg);
+  stroke-opacity: 0.5;
+  stroke-width: 1;
+}
+
+.anat-flow-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+}
+
+.anat-flow-title {
+  letter-spacing: 0.16em;
+}
+
+.anat-chain {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) clamp(1.25rem, 2.4vw, 2.25rem)
+    minmax(0, 1fr) clamp(1.25rem, 2.4vw, 2.25rem)
+    minmax(0, 1fr);
+  align-items: center;
+  row-gap: 0.5rem;
+}
+
+.anat-node {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.6rem;
+  min-height: 2.5rem;
+  padding: 0.4rem 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--fg) 34%, transparent);
+}
+
+.anat-node-tag {
+  color: var(--fg);
+}
+
+.anat-node-name {
+  font-size: var(--text-sm);
+  line-height: 1.2;
+  color: var(--fg-soft);
+}
+
+.anat-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 0.2rem;
+}
+
+.anat-link svg {
+  width: 100%;
+  height: 0.5rem;
+  overflow: visible;
+}
+
+.anat-link-path,
+.anat-link-head {
+  fill: none;
+  stroke: var(--fg-soft);
+  stroke-width: 1;
+  stroke-opacity: 0.75;
+}
+
+.anat-handoff {
+  grid-column: 3;
+  grid-row: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding-top: 0.5rem;
+  border-top: 1px dashed color-mix(in srgb, var(--fg-soft) 60%, transparent);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.anat-handoff-key {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.anat-handoff-sep,
+.anat-handoff-rest {
+  color: var(--fg-soft);
+}
+
+.anat-flow-note {
+  max-width: 92ch;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--fg-soft);
+}
+
+/* --- pin readout: only where the pin exists ------------------ */
+
+.anat-readout {
+  display: none;
+}
+
+.anat-step {
+  transition: color var(--dur-2) linear;
+}
+
+.anat-progress {
+  position: relative;
+  flex: 1 1 auto;
+  height: 1px;
+  background: color-mix(in srgb, var(--fg) 22%, transparent);
+}
+
+.anat-progress-fill {
+  position: absolute;
+  inset: 0;
+  height: 1px;
+  background: var(--fg);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* --- desktop: pinned stage ---------------------------------- */
+
+@media (min-width: 900px) {
+  .anat-stage {
+    display: grid;
+    align-content: center;
+    min-height: 100svh;
+    padding-top: calc(64px + clamp(1rem, 3vh, 2rem));
+    padding-bottom: clamp(1.25rem, 3vh, 2.25rem);
+  }
+
+  .anat-figure {
+    --anat-ratio: 1.7308;
+    /* the canvas takes whatever the viewport has left after the flow band,
+       the readout and the fixed bar */
+    width: min(100%, 64rem, calc((100svh - 23rem) * var(--anat-ratio)));
+    margin-inline: auto;
+  }
+}
+
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .anat-readout {
+    display: flex;
+    align-items: baseline;
+    gap: clamp(0.75rem, 2vw, 1.75rem);
+    margin-top: clamp(0.9rem, 1.8vh, 1.4rem);
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .anat-stage[data-stage="1"] .anat-step[data-step="1"],
+  .anat-stage[data-stage="2"] .anat-step[data-step="2"],
+  .anat-stage[data-stage="3"] .anat-step[data-step="3"] {
+    color: var(--fg);
+  }
+}
+
+/* --- mobile: the same figure, stacked and complete ----------- */
+
+@media (max-width: 899px) {
+  .anat-head {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .anat-title {
+    grid-column: 1 / -1;
+  }
+
+  .anat-hint {
+    display: none;
+  }
+
+  .anat-canvas {
+    aspect-ratio: auto;
+  }
+
+  .anat-svg {
+    position: static;
+    height: auto;
+  }
+
+  .anat-leaders {
+    display: none;
+  }
+
+  .anat-caps {
+    position: static;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .anat-cap {
+    position: static;
+    transform: none;
+    padding-block: 0.85rem;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .anat-cap-inner {
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+  }
+
+  .anat-cap-blurb {
+    max-width: 46ch;
+  }
+
+  .anat-chain {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0;
+  }
+
+  .anat-link {
+    position: relative;
+    height: 1.9rem;
+  }
+
+  .anat-link svg {
+    display: none;
+  }
+
+  .anat-link::before {
+    content: "";
+    width: 1px;
+    height: 100%;
+    background: color-mix(in srgb, var(--fg-soft) 55%, transparent);
+  }
+
+  .anat-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 4px solid var(--fg-soft);
+  }
+
+  .anat-handoff {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .anat-node {
+    min-height: 2.75rem;
+  }
+
+  .anat-flow {
+    padding-inline: 0.75rem;
+  }
+}

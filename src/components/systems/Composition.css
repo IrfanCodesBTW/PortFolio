@@ -1,0 +1,306 @@
+/* ============================================================
+   FIG. 02 — LAYER BALANCE
+   A stacked row chart. Bars are the only thing that moves; the
+   numbers appear when a row is read.
+   ============================================================ */
+
+.comp-root {
+  border-top: 1px solid var(--hairline);
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* --- head ---------------------------------------------------- */
+
+.comp-head {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.comp-fig {
+  color: var(--fg);
+}
+
+.comp-title {
+  margin: 0;
+}
+
+.comp-hint {
+  text-align: right;
+}
+
+/* --- legend -------------------------------------------------- */
+
+.comp-legend {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem clamp(0.75rem, 1.6vw, 1.5rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.comp-legend-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.5rem;
+  row-gap: 0.2rem;
+  align-items: baseline;
+}
+
+.comp-swatch {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--layer);
+  /* cobalt is the ground, so every swatch keeps a hairline edge */
+  border: 1px solid color-mix(in srgb, var(--fg) 30%, transparent);
+  transform: translateY(-0.05em);
+}
+
+.comp-legend-name {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--track-mono);
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.comp-legend-blurb {
+  grid-column: 2;
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  color: var(--fg-soft);
+}
+
+/* --- scale and rows: one shared grid ------------------------- */
+
+.comp-scale,
+.comp-row {
+  display: grid;
+  grid-template-columns: minmax(0, 3.2fr) minmax(0, 7fr) minmax(3.25rem, 0.7fr);
+  gap: clamp(0.75rem, 2vw, 2rem);
+}
+
+.comp-scale {
+  align-items: end;
+  padding-bottom: 0.4rem;
+}
+
+.comp-scale-track {
+  position: relative;
+  height: 1rem;
+}
+
+.comp-scale-label {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  color: var(--fg);
+  opacity: 1;
+}
+
+.comp-scale-label--start {
+  transform: none;
+}
+
+.comp-scale-label--end {
+  transform: translateX(-100%);
+}
+
+.comp-scale-total {
+  text-align: right;
+  opacity: 1;
+}
+
+/* --- rows ---------------------------------------------------- */
+
+.comp-rows {
+  border-top: 1px solid var(--hairline);
+}
+
+.comp-row {
+  align-items: center;
+  padding-block: clamp(0.85rem, 1.7vw, 1.15rem);
+  border-bottom: 1px solid var(--hairline);
+  transition: opacity var(--dur-2) var(--ease-out);
+}
+
+.comp-id {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  column-gap: 0.5rem;
+  row-gap: 0.15rem;
+  align-items: baseline;
+}
+
+.comp-index {
+  grid-column: 1;
+  color: var(--fg);
+}
+
+.comp-name {
+  grid-column: 2;
+  font-size: var(--text-lg);
+  font-weight: 500;
+  letter-spacing: -0.022em;
+  line-height: 1.1;
+}
+
+.comp-kind {
+  grid-column: 2;
+}
+
+.comp-bar {
+  display: flex;
+  gap: 1px;
+  height: clamp(1.4rem, 2.4vw, 1.85rem);
+  transform-origin: left center;
+}
+
+.comp-seg {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  min-width: 0;
+  background: var(--layer);
+}
+
+.comp-seg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid color-mix(in srgb, var(--fg) 26%, transparent);
+  pointer-events: none;
+}
+
+.comp-seg-pct {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--seg-ink);
+  opacity: 0;
+  transition: opacity var(--dur-1) linear;
+}
+
+.comp-total {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--fg-soft);
+}
+
+/* --- read states -------------------------------------------- */
+
+.comp-row:hover .comp-seg-pct,
+.comp-row:focus-visible .comp-seg-pct {
+  opacity: 1;
+}
+
+.comp-row:focus-visible {
+  outline-offset: 4px;
+}
+
+@media (hover: hover) {
+  .comp-rows:hover .comp-row {
+    opacity: 0.55;
+  }
+
+  .comp-rows:hover .comp-row:hover {
+    opacity: 1;
+  }
+}
+
+.comp-rows:has(.comp-row:focus-visible) .comp-row {
+  opacity: 0.55;
+}
+
+.comp-rows:has(.comp-row:focus-visible) .comp-row:focus-visible {
+  opacity: 1;
+}
+
+/* --- responsive --------------------------------------------- */
+
+@media (max-width: 900px) {
+  .comp-legend {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .comp-head {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .comp-title {
+    grid-column: 1 / -1;
+  }
+
+  .comp-hint {
+    display: none;
+  }
+
+  .comp-scale,
+  .comp-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .comp-scale {
+    row-gap: 0.5rem;
+  }
+
+  .comp-scale > span:first-child {
+    display: none;
+  }
+
+  .comp-scale-track {
+    grid-column: 1 / -1;
+    order: 2;
+  }
+
+  .comp-scale-total {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .comp-row {
+    row-gap: 0.7rem;
+  }
+
+  .comp-id {
+    grid-column: 1;
+  }
+
+  .comp-total {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    padding-top: 0.15rem;
+  }
+
+  .comp-bar {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    height: 1.5rem;
+  }
+
+  .comp-seg-pct {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .comp-legend {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

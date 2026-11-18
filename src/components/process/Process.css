@@ -1,0 +1,221 @@
+/* ============================================================
+   PROCESS — four steps on a ruler. The rail is structure, not
+   decoration: it carries the reading direction.
+   ============================================================ */
+
+.proc-head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  row-gap: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: clamp(3rem, 6vw, 5.5rem);
+}
+
+.proc-eyebrow {
+  grid-row: 1;
+  grid-column: 1 / span 6;
+}
+
+.proc-title {
+  grid-row: 2;
+  grid-column: 1 / -1;
+}
+
+.proc-title .mask {
+  padding-bottom: 0.24em;
+  margin-bottom: -0.2em;
+}
+
+.proc-note {
+  grid-row: 1;
+  grid-column: 8 / span 5;
+  justify-self: end;
+  max-width: 38ch;
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--fg-soft);
+}
+
+/* --- the rail ----------------------------------------------- */
+
+.proc-body {
+  position: relative;
+}
+
+.proc-rule,
+.proc-fill {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.proc-rule--h {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--hairline);
+}
+
+.proc-fill--h {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--fg);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+.proc-rule--v,
+.proc-fill--v {
+  display: none;
+}
+
+/* --- steps -------------------------------------------------- */
+
+.proc-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.proc-step {
+  position: relative;
+  padding: clamp(2.4rem, 4vw, 3.5rem) clamp(0.75rem, 1.5vw, 1.5rem) 0 0;
+}
+
+.proc-step + .proc-step {
+  border-left: 1px solid var(--hairline);
+  padding-left: clamp(0.75rem, 1.5vw, 1.5rem);
+}
+
+.proc-node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--fg);
+  border-radius: 50%;
+  background-color: var(--ground);
+  transform: translate(-50%, -50%);
+}
+
+.proc-node-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: var(--fg);
+  opacity: 0;
+}
+
+.proc-num {
+  display: block;
+  color: var(--fg);
+}
+
+.proc-step-title {
+  margin-top: clamp(0.75rem, 1.4vw, 1.15rem);
+  color: var(--fg);
+}
+
+.proc-summary {
+  max-width: 24ch;
+  margin-top: 0.7rem;
+  font-size: var(--text-base);
+  line-height: 1.4;
+  color: var(--fg);
+}
+
+.proc-detail {
+  max-width: 30ch;
+  margin-top: 0.85rem;
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--fg-soft);
+}
+
+/* --- mobile: the ruler turns vertical ----------------------- */
+
+@media (max-width: 900px) {
+  .proc-head {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .proc-eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .proc-note {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    justify-self: start;
+    max-width: 46ch;
+  }
+
+  .proc-title {
+    grid-row: 3;
+  }
+
+  .proc-body {
+    padding-left: 1.6rem;
+  }
+
+  .proc-rule--h,
+  .proc-fill--h {
+    display: none;
+  }
+
+  .proc-rule--v {
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    background-color: var(--hairline);
+  }
+
+  .proc-fill--v {
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    background-color: var(--fg);
+    transform: scaleY(0);
+    transform-origin: 50% 0;
+  }
+
+  .proc-steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .proc-step {
+    padding: 1.9rem 0;
+  }
+
+  .proc-step + .proc-step {
+    border-left: 0;
+    border-top: 1px solid var(--hairline);
+    padding-left: 0;
+  }
+
+  .proc-node {
+    top: 2.6rem;
+    left: -1.6rem;
+  }
+
+  .proc-summary,
+  .proc-detail {
+    max-width: 44ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proc-fill--h,
+  .proc-fill--v {
+    transition: none;
+  }
+}

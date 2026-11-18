@@ -1,0 +1,76 @@
+/* ============================================================
+   CURSOR — 8px dot, 28px ring, difference blend.
+   Positioned by GSAP; this file only defines the shapes.
+   ============================================================ */
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  mix-blend-mode: difference;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--fg);
+  transition: background-color 650ms var(--ease-out);
+}
+
+/* the box is 64 so the ring can grow without clipping; the circle is 28 */
+.cursor-ring {
+  width: 64px;
+  height: 64px;
+  overflow: visible;
+}
+
+.cursor-ring-line {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 650ms var(--ease-out);
+}
+
+.cursor-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  padding: 0.34rem 0.5rem;
+  background: var(--fg);
+  color: var(--ground);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+}
+
+@media (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    display: none;
+  }
+}

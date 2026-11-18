@@ -1,0 +1,14 @@
+/* LAYER STRIP — four proportional segments, no decoration. */
+
+.strip {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  background: var(--hairline);
+}
+
+.strip-seg {
+  display: block;
+  height: 100%;
+  transform-origin: left center;
+}

@@ -1,0 +1,167 @@
+/* ============================================================
+   FOOTER — ink plate, one clipped wordmark, one credit row.
+   ============================================================ */
+
+.foot {
+  position: relative;
+  padding-block: clamp(3rem, 6vw, 5.5rem) clamp(1.5rem, 2.6vw, 2.25rem);
+  overflow: hidden;
+}
+
+.foot-inner {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.foot-line {
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--fg-soft);
+  max-width: 44ch;
+}
+
+/* --- the wordmark ------------------------------------------- */
+
+.foot-word {
+  overflow: hidden;
+  margin-block: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+.foot-word-inner {
+  display: block;
+  font-size: clamp(4rem, 24vw, 26rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--fg);
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* --- credit row --------------------------------------------- */
+
+.foot-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) auto;
+  align-items: end;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  padding-top: clamp(1rem, 2vw, 1.5rem);
+  border-top: 1px solid var(--hairline);
+}
+
+.foot-credit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem;
+  color: var(--fg);
+}
+
+.foot-credit-sep {
+  color: var(--fg-soft);
+}
+
+.foot-colophon {
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  color: var(--fg-soft);
+  max-width: 58ch;
+}
+
+.foot-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem clamp(1rem, 2vw, 2rem);
+}
+
+.foot-socials {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+.foot-social {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--track-mono);
+  text-transform: uppercase;
+  color: var(--fg);
+  transition: opacity var(--dur-2) var(--ease-out);
+}
+
+.foot-social:hover {
+  opacity: 0.6;
+}
+
+.foot-clock {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.foot-time {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--fg);
+}
+
+.foot-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding-inline: 0.15rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--track-mono);
+  text-transform: uppercase;
+  color: var(--fg);
+  transition: opacity var(--dur-2) var(--ease-out);
+}
+
+.foot-top:hover {
+  opacity: 0.62;
+}
+
+.foot-top-arrow {
+  display: inline-block;
+  transition: transform var(--dur-2) var(--ease-out);
+}
+
+.foot-top:hover .foot-top-arrow {
+  transform: translateY(-3px);
+}
+
+/* --- responsive --------------------------------------------- */
+
+@media (max-width: 900px) {
+  .foot-bottom {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .foot-actions {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 640px) {
+  .foot-word-inner {
+    font-size: clamp(3.5rem, 24vw, 10rem);
+  }
+
+  .foot-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

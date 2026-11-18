@@ -1,0 +1,122 @@
+/* ============================================================
+   MANIFEST — ink ground, one statement, one quiet paragraph
+   that takes colour word by word as you scroll. No pin.
+   ============================================================ */
+
+.man {
+  position: relative;
+}
+
+.man-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: clamp(0.65rem, 1.4vh, 0.95rem);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.man-body {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--gap) var(--gap);
+  margin-top: clamp(1.75rem, 4.5vw, 3.5rem);
+  align-items: start;
+}
+
+.man-main {
+  grid-column: 1 / 9;
+}
+
+.man-lead.display {
+  display: flex;
+  flex-direction: column;
+  font-stretch: 108%;
+  line-height: 0.9;
+}
+
+.man-lead .line {
+  white-space: nowrap;
+}
+
+.man-lead .mask {
+  padding-top: 0.12em;
+  padding-bottom: 0.18em;
+  margin-top: -0.12em;
+  margin-bottom: -0.18em;
+}
+
+.man-para {
+  max-width: 40ch;
+  margin-top: clamp(1.5rem, 3.5vw, 2.75rem);
+  font-family: var(--font-ui);
+  font-size: clamp(1.2rem, 2.15vw, 1.85rem);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  color: var(--fg);
+}
+
+/* the scrub: each word walks from the muted tone to the foreground */
+
+.man-word {
+  color: var(--fg-soft);
+  color: color-mix(in srgb, var(--fg) calc(var(--w, 0) * 100%), var(--fg-soft));
+}
+
+.man--still .man-word {
+  --w: 1;
+}
+
+.man-aside {
+  grid-column: 9 / -1;
+  max-width: 46ch;
+  padding-top: clamp(0.9rem, 1.8vw, 1.35rem);
+  border-top: 1px solid var(--hairline);
+}
+
+.man-aside-body {
+  font-size: var(--text-sm);
+  line-height: 1.62;
+  letter-spacing: var(--track-ui);
+  color: var(--fg-soft);
+  max-width: 42ch;
+}
+
+.man-closing {
+  max-width: 42ch;
+  margin-top: clamp(2.75rem, 7vw, 6rem);
+  padding-top: clamp(1.1rem, 2.5vw, 1.85rem);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--text-xl);
+  line-height: 1.25;
+  color: var(--fg);
+}
+
+/* --- responsive --------------------------------------------- */
+
+@media (max-width: 900px) {
+  .man-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .man-main,
+  .man-aside {
+    grid-column: 1 / -1;
+  }
+
+  .man-aside {
+    margin-top: clamp(1.75rem, 5vw, 2.5rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .man-para {
+    font-size: clamp(1.125rem, 4.6vw, 1.35rem);
+    max-width: none;
+  }
+
+  .man-lead.display {
+    font-size: min(var(--display-2), 11.5vw);
+  }
+}

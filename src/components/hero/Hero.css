@@ -1,0 +1,172 @@
+/* ============================================================
+   HERO — one loud type moment, one interaction, no pin.
+   ============================================================ */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+}
+
+.hero-shell {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1.75rem, 3.5vh, 3rem);
+  min-height: 100svh;
+  padding-top: clamp(5rem, 10vh, 8rem);
+  padding-bottom: clamp(1.75rem, 4.5vh, 3rem);
+}
+
+/* --- meta strip --------------------------------------------- */
+
+.hero-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.65rem 2rem;
+  padding-bottom: clamp(0.6rem, 1.4vh, 0.95rem);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.hero-kicker.label {
+  color: var(--fg);
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.75rem;
+}
+
+.hero-fact {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+}
+
+.hero-fact .hero-fact-value {
+  color: var(--fg);
+}
+
+/* --- headline ----------------------------------------------- */
+
+.hero-title.display {
+  display: flex;
+  flex-direction: column;
+  font-size: min(var(--display-1), 10.2vw, 10rem);
+  font-stretch: 108%;
+  letter-spacing: var(--track-tight);
+  line-height: 0.84;
+  max-width: 100%;
+}
+
+.hero-title .line {
+  white-space: nowrap;
+}
+
+/* Display leading is tighter than the glyph box, so give the mask room
+   without changing the visual line pitch. */
+.hero-title .mask {
+  padding-top: 0.12em;
+  padding-bottom: 0.2em;
+  margin-top: -0.12em;
+  margin-bottom: -0.2em;
+}
+
+/* --- lower half --------------------------------------------- */
+
+.hero-base {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--gap);
+  align-items: end;
+}
+
+.hero-copy {
+  grid-column: 1 / 6;
+  display: grid;
+  justify-items: start;
+  gap: clamp(0.95rem, 2.2vh, 1.6rem);
+  max-width: 32rem;
+}
+
+.hero .hero-sub {
+  max-width: 42ch;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.hero-legend {
+  width: 100%;
+  max-width: 36ch;
+  padding-top: clamp(0.75rem, 1.6vh, 1.1rem);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  letter-spacing: var(--track-ui);
+  color: var(--fg-soft);
+}
+
+.hero-dial-wrap {
+  grid-column: 8 / -1;
+  justify-self: end;
+  width: 100%;
+  max-width: 21rem;
+}
+
+/* --- responsive --------------------------------------------- */
+
+@media (max-width: 1100px) {
+  .hero-copy {
+    grid-column: 1 / 7;
+  }
+
+  .hero-dial-wrap {
+    grid-column: 8 / -1;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-shell {
+    padding-top: clamp(4.75rem, 10vh, 6rem);
+    gap: clamp(1.5rem, 4vh, 2.5rem);
+  }
+
+  .hero-base {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(1.75rem, 5vh, 2.5rem);
+  }
+
+  .hero-copy {
+    max-width: 36rem;
+  }
+
+  .hero-dial-wrap {
+    align-self: stretch;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-title.display {
+    font-size: min(var(--display-1), 9.8vw);
+    line-height: 0.88;
+  }
+
+  .hero-meta {
+    gap: 0.35rem 1.1rem;
+  }
+
+  .hero-legend {
+    max-width: 30ch;
+  }
+}

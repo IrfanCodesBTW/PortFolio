@@ -1,0 +1,297 @@
+/* ============================================================
+   NAV — the bar takes the ambient ground, so it never floats.
+   Structure only: one hairline, no glass, no shadow.
+   ============================================================ */
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-nav);
+}
+
+.nav-bar {
+  position: relative;
+  z-index: 2;
+  background: var(--ground);
+  border-bottom: 1px solid var(--hairline);
+  will-change: transform;
+  transition:
+    background-color 650ms var(--ease-out),
+    border-color 650ms var(--ease-out),
+    color 650ms var(--ease-out);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  height: 64px;
+}
+
+/* --- wordmark ----------------------------------------------- */
+
+.nav-wordmark {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 110%;
+  font-size: 1.0625rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+  transition: opacity var(--dur-2) var(--ease-out);
+}
+
+.nav-wordmark:hover {
+  opacity: 0.58;
+}
+
+/* --- right cluster ------------------------------------------ */
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 1.6vw, 1.75rem);
+  margin-left: auto;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.4vw, 1.35rem);
+}
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--track-mono);
+  text-transform: uppercase;
+  color: var(--fg);
+  transition: color var(--dur-2) var(--ease-out);
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0.35rem;
+  right: 0.35rem;
+  bottom: 11px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform var(--dur-3) var(--ease-out);
+}
+
+.nav-link:hover::after,
+.nav-link[aria-current]::after {
+  transform: scaleX(1);
+}
+
+.nav-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-soft);
+  white-space: nowrap;
+}
+
+.nav-dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-live);
+}
+
+.nav-cta {
+  flex: none;
+  min-height: 44px;
+  padding-block: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* --- mobile toggle ------------------------------------------ */
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.65rem;
+  margin-left: auto;
+  min-height: 44px;
+  padding-inline: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--track-mono);
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.nav-toggle-mark {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 14px;
+  height: 14px;
+}
+
+.nav-toggle-mark span {
+  display: block;
+  width: 14px;
+  height: 1px;
+  background: currentColor;
+  transition: transform var(--dur-2) var(--ease-out);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-mark span:first-child {
+  transform: translateY(2.5px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-mark span:last-child {
+  transform: translateY(-2.5px) rotate(-45deg);
+}
+
+/* --- overlay menu ------------------------------------------- */
+
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: none;
+  background: var(--ground);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--dur-2) var(--ease-out),
+    visibility 0s linear var(--dur-2),
+    background-color 650ms var(--ease-out);
+}
+
+.nav-overlay[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity var(--dur-2) var(--ease-out),
+    visibility 0s linear 0s,
+    background-color 650ms var(--ease-out);
+}
+
+.nav-overlay-inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 4vh, 2.5rem);
+  height: 100dvh;
+  padding-top: calc(64px + clamp(1.5rem, 6vh, 3.5rem));
+  padding-bottom: clamp(1.5rem, 5vh, 2.5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.nav-overlay-item {
+  border-top: 1px solid var(--hairline);
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity var(--dur-3) var(--ease-out),
+    transform var(--dur-3) var(--ease-out);
+  transition-delay: calc(var(--i) * 45ms);
+}
+
+.nav-overlay-item:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.nav-overlay[data-open="true"] .nav-overlay-item {
+  opacity: 1;
+  transform: none;
+}
+
+.nav-overlay:not([data-open="true"]) .nav-overlay-item {
+  transition-duration: 200ms;
+  transition-delay: 0ms;
+}
+
+.nav-overlay-link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding-block: clamp(0.55rem, 1.4vh, 0.9rem);
+  color: var(--fg);
+}
+
+.nav-overlay-index {
+  flex: none;
+  transform: translateY(-0.2em);
+}
+
+.nav-overlay-word {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 110%;
+  font-size: var(--display-3);
+  line-height: 0.94;
+  letter-spacing: var(--track-tight);
+  transition: transform var(--dur-2) var(--ease-out);
+}
+
+.nav-overlay-link:hover .nav-overlay-word {
+  transform: translateX(6px);
+}
+
+.nav-overlay-foot {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: auto;
+  padding-top: clamp(1rem, 3vh, 1.5rem);
+  border-top: 1px solid var(--hairline);
+}
+
+.nav-overlay-mail {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--text-lg);
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  overflow-wrap: anywhere;
+}
+
+/* --- responsive --------------------------------------------- */
+
+@media (max-width: 900px) {
+  .nav-right {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  .nav-overlay {
+    display: block;
+  }
+}

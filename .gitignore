@@ -1,12 +1,7 @@
-# Windows
-Thumbs.db
-Desktop.ini
-
-# IDEs
-.vscode/
-.idea/
-
-# Local data
-.gemini/
-node_modules/
+node_modules
+dist
+dist-ssr
 .DS_Store
+*.local
+.vercel
+qa
